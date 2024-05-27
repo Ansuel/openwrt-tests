@@ -3,6 +3,8 @@ import pytest
 import re
 import tarfile
 
+def test_failsafe(earlyshell_command):
+    earlyshell_command.run("f")
 
 def test_shell(shell_command):
     shell_command.run("true")

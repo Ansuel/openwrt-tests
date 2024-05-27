@@ -33,6 +33,7 @@ class QEMUNetworkStrategy(Strategy):
     bindings = {
         "qemu": "QEMUDriver",
         "shell": "ShellDriver",
+        "shell": "EarlyShellDriver",
         "ssh": "SSHDriver",
     }
 
