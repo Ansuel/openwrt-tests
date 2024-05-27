@@ -20,9 +20,15 @@ def pytest_addoption(parser):
     parser.addoption("--target", action="store", default="main")
     parser.addoption("--firmware", action="store", default="firmware.bin")
     parser.addoption("--online", action="store_true")
+    parser.addoption("--flashed", action="store_true")
 
 
 def pytest_collection_modifyitems(config, items):
+    if not config.getoption("--flashed"):
+        skip_flashed = pytest.mark.skip(reason="need --flashed option to run")
+        for item in items:
+            if "flashed" in item.keywords:
+                item.add_marker(skip_flashed)
     if not config.getoption("--online"):
         skip_online = pytest.mark.skip(reason="need --online option to run")
         for item in items:
@@ -32,6 +38,7 @@ def pytest_collection_modifyitems(config, items):
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "online: Requires Internet uplink to work")
+    config.addinivalue_line("markers", "flashed: Requires Image flashed to work")
 
 
 def ubus_call(command, namespace, method, params):

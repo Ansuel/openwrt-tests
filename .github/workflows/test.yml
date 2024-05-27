@@ -23,6 +23,7 @@ jobs:
 
           - target: x86/64
             firmware: openwrt-x86-64-generic-squashfs-combined.img.gz
+            flashed: true
 
           - target: armsr/armv8
             firmware: openwrt-armsr-armv8-generic-initramfs-kernel.bin
@@ -62,7 +63,8 @@ jobs:
             --lg-log \
             --lg-colored-steps \
             -v \
-            --firmware $GITHUB_WORKSPACE/${firmware/.gz/}
+            --firmware $GITHUB_WORKSPACE/${firmware/.gz/} \
+            ${{ matrix.flashed && '--flashed' || '' }}
 
       - name: Upload console logs
         uses: actions/upload-artifact@v2
