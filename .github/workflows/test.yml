@@ -60,7 +60,7 @@ jobs:
             --lg-env targets/qemu-${target/\//-}.yaml \
             --lg-log \
             --lg-colored-steps \
-            -v \
+            -vv \
             --firmware $GITHUB_WORKSPACE/${firmware/.gz/}
 
       - name: Upload console logs
